@@ -1,0 +1,753 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+
+    
+    body{
+    background:
+    radial-gradient(circle at top left,#ccfbf1,transparent 35%),
+    radial-gradient(circle at bottom right,#dbeafe,transparent 35%),
+    #f1f8f7;
+
+    font-family:'Inter',sans-serif;
+}
+
+
+
+.btn-light{
+
+    font-weight:600;
+
+    transition:.3s;
+}
+
+.btn-light:hover{
+
+    transform:translateY(-2px);
+}
+
+/* ==========================
+   MODAL GLASSMORPHISM STYLE
+========================== */
+
+.modal-content{
+    background: rgba(255,255,255,0.65) !important;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border: 1px solid rgba(255,255,255,.75);
+    border-radius: 22px;
+
+    box-shadow:
+        0 20px 45px rgba(15,118,110,.18);
+}
+
+.modal-header{
+    background: linear-gradient(135deg,#0f766e,#14b8a6);
+    color:white;
+    border-bottom:none;
+    border-radius:22px 22px 0 0;
+    padding:16px 20px;
+}
+
+.modal-title{
+    font-weight:700;
+    letter-spacing:.5px;
+}
+
+.btn-close{
+    filter: brightness(0) invert(1);
+}
+
+.modal-body{
+    padding:20px;
+}
+
+/* Table Styling Inside Modal */
+
+.modal-body .table{
+    margin-bottom:0;
+    border-radius:14px;
+    overflow:hidden;
+}
+
+.modal-body .table th{
+    background:#e6fffa;
+    color:#134e4a;
+    font-weight:600;
+}
+
+.modal-body .table td{
+    background:rgba(255,255,255,.6);
+}
+
+/* Images inside modal */
+
+.modal-body img{
+    border-radius:12px;
+    border:1px solid rgba(15,118,110,.15);
+    box-shadow:
+        0 8px 18px rgba(15,118,110,.10);
+}
+
+/* Footer */
+
+.modal-footer{
+    border-top:none;
+    padding:15px 20px;
+}
+
+/* Close Button */
+
+.modal-footer .btn-secondary{
+    background:#0f766e;
+    border:none;
+    border-radius:12px;
+}
+
+.modal-footer .btn-secondary:hover{
+    background:#115e59;
+}
+/* ==========================
+   ALL BUTTONS STYLING
+========================== */
+
+.btn{
+    border:none !important;
+    border-radius:12px !important;
+    font-weight:600;
+    padding:8px 18px;
+    transition:.3s;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+/* Primary */
+
+.btn-primary{
+    background:#0f766e !important;
+}
+
+.btn-primary:hover{
+    background:#115e59 !important;
+    box-shadow:0 10px 20px rgba(15,118,110,.25);
+}
+
+/* Success */
+
+.btn-success{
+    background:#14b8a6 !important;
+}
+
+.btn-success:hover{
+    background:#0f766e !important;
+    box-shadow:0 10px 20px rgba(20,184,166,.25);
+}
+
+/* Danger */
+
+.btn-danger{
+    background:#ef4444 !important;
+}
+
+.btn-danger:hover{
+    background:#dc2626 !important;
+    box-shadow:0 10px 20px rgba(239,68,68,.25);
+}
+
+/* Dark */
+
+.btn-dark{
+    background:#334155 !important;
+}
+
+.btn-dark:hover{
+    background:#1e293b !important;
+    box-shadow:0 10px 20px rgba(51,65,85,.25);
+}
+
+/* Secondary */
+
+.btn-secondary{
+    background:#64748b !important;
+}
+
+.btn-secondary:hover{
+    background:#475569 !important;
+    box-shadow:0 10px 20px rgba(100,116,139,.25);
+}
+
+/* Outline Buttons */
+
+.btn-outline-primary{
+    border:2px solid #0f766e !important;
+    color:#0f766e !important;
+    background:transparent !important;
+}
+
+.btn-outline-primary:hover{
+    background:#0f766e !important;
+    color:white !important;
+}
+
+/* ================= NAVBAR ================= */
+
+.dashboard-nav{
+    background: linear-gradient(135deg,#0f766e,#14b8a6);
+    padding:14px 0;
+    box-shadow:0 8px 20px rgba(15,118,110,.15);
+}
+
+.navbar-brand{
+    color:#fff !important;
+    font-size:28px !important;
+    letter-spacing:.8px;
+}
+
+.navbar-brand i{
+    color:#fff;
+}
+
+.dashboard-title{
+    color:#fff;
+    font-size:24px;
+    font-weight:700;
+    letter-spacing:1px;
+}
+
+.navbar-toggler{
+    border:none;
+}
+
+.navbar-toggler:focus{
+    box-shadow:none;
+}
+
+.logout-btn{
+    background:#fff !important;
+    color:#0f766e !important;
+    border:none !important;
+    border-radius:12px !important;
+    font-weight:600;
+    padding:8px 18px;
+    transition:.3s;
+}
+
+.logout-btn:hover{
+    background:#f0fdfa !important;
+    color:#115e59 !important;
+    transform:translateY(-2px);
+}
+</style>
+    <script>
+        let myModule = angular.module("moduleKuch", []);
+        let mycontroller = myModule.controller("controllerKuch", function ($scope, $http) {
+
+            //-------------------show function of Medicine manager----------
+            $scope.doShowAllMedData = function () {
+    
+                let url = "/Med-data-fetch?emailKeyKuch=" +  $scope.Email;
+                 alert($scope.Email);
+                $http.get(url).then(function (resp) {
+                    $scope.MedjsonAry = (resp.data);
+                }, function (resp) {
+                    alert(err.data);
+                });
+            }
+
+            //-------------------delete button of Medicine manager----------
+            $scope.dodeleteMed = function (rid) {
+                let url = "/do-delete-med-data?ridKuch=" + rid;
+
+                $http.get(url).then(function (resp) {
+
+                    alert(resp.data);
+
+                    $scope.doShowAllMedData();
+
+                }, function (resp) {
+                    alert(resp.data);
+                });
+            }
+            //-------------------------------------------------------------------------------------------------------------------------------------------
+            //-------------------show function of Equipment manager----------
+            $scope.doShowEquipData = function () {
+                
+             let url = "/Equip-data-fetch?emailKeyKuch=" + $scope.EquipEmail;
+               alert($scope.EquipEmail);
+                $http.get(url).then(function (resp) {
+                    $scope.EquipjsonAry = (resp.data);
+                }, function (resp) {
+                    alert(err);
+                });
+            }
+
+            //-------------------delete button of Equipment manager----------
+            $scope.dodeleteEquip = function (rid) {
+                let url = "/do-delete-equip-data?ridKuch=" + rid;
+
+                $http.get(url).then(function (resp) {
+
+                    alert(resp.data);
+
+                    $scope.doShowEquipData();
+
+                }, function (resp) {
+                    alert(resp.data);
+                });
+            }
+
+
+            //-------------------Update Password-------------------
+            $scope.doUpdatePass = function () {
+                let url = "/update-password?emailKeyKuch=" + $scope.setEmail
+                    + "&oldPwdKuch=" + $scope.oldpwd
+                    + "&newPwdKuch=" + $scope.newpwd;
+
+                $http.get(url).then(function (resp) {
+
+                    alert(resp.data);
+
+                }, function (resp) {
+
+                    alert(resp.data);
+
+                });
+            }
+
+
+
+        })
+    </script>
+</head>
+
+</head>
+
+<body ng-app="moduleKuch" ng-controller="controllerKuch">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+
+    <!-----------------------nav Started-------------------------------------->
+  <!-- ================= NAVBAR ================= -->
+<nav class="navbar navbar-expand-lg dashboard-nav shadow-sm">
+
+    <div class="container-fluid px-4">
+
+        <!-- Logo + Website Name -->
+        <a class="navbar-brand fw-bold text-white fs-4" href="#">
+            
+            
+        <i class="fa-solid fa-heart-pulse"></i>
+    
+            CareVeda
+        </a>
+
+        <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+
+            <!-- Center Heading -->
+            <div class="mx-auto">
+                <span class="dashboard-title">
+                    Donor Dashboard
+                </span>
+            </div>
+
+            <!-- Right Side -->
+            <div class="d-flex align-items-center gap-2">
+
+                <span class="text-white fw-semibold">
+                    Welcome Donor
+                </span>
+
+                <a href="/" class="btn btn-light logout-btn">
+                    <i class="fa-solid fa-right-from-bracket me-1"></i>
+                    Logout
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</nav>
+    <!--nav finished----------------------------------------------------------------->
+    <div class="row"> <!--only in one row their will be 4 cards of col-md-3-->
+
+        <!-----------------------Card 1-------------------------->
+        <div class="col-md-3  mt-2"> <!--have to write by ourself-->
+            <!-----bootstrap-->
+            <div class="card text-center mb-3">
+
+                <i class="fa-solid fa-address-card fa-5x "></i>
+                <div class="card-body">
+
+                    <a href="/Donor-profile" class="btn btn-primary">Donor Profile</a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-----------------------Card 2-------------------------->
+        <div class="col-md-3  mt-2"> <!--have to write by ourself-->
+            <!-----bootstrap-->
+            <div class="card text-center mb-3">
+
+                <i class="fa-solid fa-capsules  fa-5x "></i>
+                <div class="card-body">
+
+                    <a href="/Avail-medicine" class="btn btn-primary">Avail Medicines</a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-----------------------Card 3-------------------------->
+        <div class="col-md-3  mt-2"> <!--have to write by ourself-->
+            <!-----bootstrap-->
+            <div class="card text-center mb-3">
+                <i class="fa-solid fa-wheelchair  fa-5x"></i>
+
+                <div class="card-body">
+
+                    <a href="/Avail-equipment" class="btn btn-primary">Avail Equipment</a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-----------------------Card 4-------------------------->
+        <div class="col-md-3  mt-2"> <!--have to write by ourself-->
+            <!-----bootstrap-->
+            <div class="card text-center mb-3">
+
+                <div class="text-center mt-4">
+                    <i class="fa-solid fa-user-doctor fa-5x "></i>
+                </div>
+                <div class="card-body">
+
+                    <button class="btn btn-primary" type="button" class="btn btn-primary"
+                        data-bs-toggle="modal" data-bs-target="#manageMedModal">Manage Medicines</button>
+
+
+                    <!--Medicine Manager Modal ----------------->
+
+
+                    <div class="modal fade" id="manageMedModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-xl modal-dialog-centered ">
+                            <div class="modal-content shadow-lg border-0 rounded-4">
+                                <div class="modal-header bg-success text-white rounded-top-4">
+                                    <h3 class="modal-title fw-bold">
+                                        💊 Manage Medicines
+                                    </h3>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+
+                                </div>
+                                <div class="modal-body p-4">
+                                    <!------------form------------------------>
+                                    <form action="" method="post" enctype="multipart/form-data">
+                                        <div class="row g-3 mt-1">
+                                            <div class="col-md-6">
+                                                <label for="Email" class="form-label">Email</label>
+                                                <input type="name" class="form-control shadow-sm rounded-3"
+                                                    placeholder="Enter Email" id="Email" name="Email" ng-model="Email">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <center><button type="button" class="btn btn-primary rounded-pill px-4"
+                                                        id="fetchmeddata" ng-click="doShowAllMedData();">Medicine
+                                                        Record</button>
+                                                </center>
+                                            </div>
+
+                                            <table
+                                                class="table table-hover table-striped table-bordered align-middle text-center table-sm"
+                                                style="table-layout:fixed; width:100%;">
+
+                                                <tr>
+                                                    <th>Sr no.</th>
+                                                    <th>Email</th>
+                                                    <th>Medicine Name</th>
+                                                    <th>Expiry Date</th>
+                                                    <th>Company</th>
+                                                    <th>packing</th>
+
+                                                    <th>Quantity</th>
+                                                    <th>Other Info</th>
+                                                    <th>Medicine Image</th>
+                                                    <th>Delete data</th>
+
+                                                </tr>
+
+                                                <tr ng-repeat="obj in MedjsonAry">
+                                                    <td>{{$index+1}}</td>
+                                                    <td>{{obj.email}}</td>
+                                                    <td>{{obj.medname}}</td> <!--database me jo name h vo dena h -->
+                                                    <td>{{obj.expdate | date:'dd-MM-yyyy'}}</td>
+                                                    <td>{{obj.company}}</td>
+                                                    <td>{{obj.packing}}</td>
+                                                    <td>{{obj.qty}}</td>
+                                                    <td>{{obj.info}}</td>
+                                                    <td>
+                                                        <center></center> <img src="{{obj.medpicURL}}" alt="" width="50"
+                                                            height="50"> </center>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-danger btn-sm"
+                                                            ng-click="dodeleteMed(obj.r_ID)">
+                                                            Delete
+                                                        </button>
+                                                    </td>
+
+
+
+                                                </tr>
+                                            </table>
+                                        </div>
+
+
+                                </div>
+                                </form>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!--row1 div closed-->
+
+
+    <div class="row"> <!--ROW 2 with  2 cards of col-md-3-->
+
+
+        <!-----------------------Card 5 row 2-------------------------->
+        <div class="col-md-3  mt-2"> <!--have to write by ourself-->
+            <!-----bootstrap-->
+            <div class="card text-center mb-3">
+
+                <div class="text-center mt-4">
+                    <i class="fa-solid fa-user-doctor fa-5x "></i>
+                </div>
+                <div class="card-body">
+
+                    <button class="btn btn-primary" type="button" class="btn btn-primary"
+                        data-bs-toggle="modal" data-bs-target="#manageEquipModal">Manage Equipments</button>
+
+
+                    <!--Equip Manager Modal ----------------->
+
+
+                    <div class="modal fade" id="manageEquipModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog modal-lg">
+                            <div class="modal-content shadow-lg border-0 rounded-4">
+                                <div class="modal-header bg-success text-white rounded-top-4">
+                                    <h3 class="modal-title fw-bold">
+                                        Equipment Manager
+                                    </h3>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+
+                                </div>
+                                <div class="modal-body p-4">
+                                    <!------------form------------------------>
+                                    <form action="" method="post" enctype="multipart/form-data">
+                                        <div class="row g-3 mt-1">
+                                            <div class="col-md-6">
+                                                <label for="EquipEmail" class="form-label">Email</label>
+                                                <input type="name" class="form-control shadow-sm rounded-3"
+                                                    placeholder="Enter Email" id="EquipEmail" name="EquipEmail" ng-model="EquipEmail">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <center><button type="button" class="btn btn-primary rounded-pill px-4"
+                                                        id="fetchequipdata" ng-click="doShowEquipData();">Get Equipment
+                                                        Record</button>
+                                                </center>
+                                            </div>
+
+                                            <table
+                                                class="table table-hover table-striped table-bordered align-middle text-center table-sm"
+                                                style="table-layout:fixed; width:100%;">
+
+                                                <tr>
+                                                    <th>Sr no.</th>
+                                                    <th>Email</th>
+                                                    <th>Medicine Equipment type</th>
+                                                    <th>Condition</th>
+                                                    <th>Type</th>
+                                                    <th>Amount</th>
+
+                                                    <th>Equipment Image 1</th>
+                                                    <th>Equipment Image 2</th>
+
+                                                    <th>Other Info</th>
+                                                    <th>Delete data</th>
+
+                                                </tr>
+
+                                                <tr ng-repeat="obj in EquipjsonAry">
+                                                    <td>{{$index+1}}</td>
+                                                    <td>{{obj.email}}</td>
+                                                    <td>{{obj.euipment_type}}</td>
+                                                    <!--database me jo name h vo dena h -->
+                                                    <td>{{obj.equip_condition}}</td>
+
+                                                    <td>{{obj.type}}</td>
+                                                    <td>{{obj.amount}}</td>
+
+
+                                                    <td>
+                                                        <center></center> <img src="{{obj.pic1url}}" alt="" width="40"
+                                                            height="40"> </center>
+                                                    </td>
+                                                    <td>
+                                                        <center></center> <img src="{{obj.pic2url}}" alt="" width="40"
+                                                            height="40"> </center>
+                                                    </td>
+
+                                                    <td>{{obj.info}}</td>
+
+                                                    <td>
+                                                        <button type="button" class="btn btn-danger btn-sm"
+                                                            ng-click="dodeleteEquip(obj.r_ID)">
+                                                            Delete
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-----------------------Card 6 row 2-------------------------->
+        <div class="col-md-3  mt-2"> <!--have to write by ourself-->
+            <!-----bootstrap-->
+            <div class="card text-center mb-3">
+
+                <i class="fa-solid fa-users-gear fa-5x"></i>
+
+                <div class="card-body">
+                    <button class="btn btn-primary" type="button" class="btn btn-primary"
+                        data-bs-toggle="modal" data-bs-target="#settingModal">Settings</button>
+
+
+                    <!--Setting Modal ----------------->
+
+
+                    <div class="modal fade" id="settingModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog  modal-dialog-centered ">
+                            <div class="modal-content shadow-lg border-0 rounded-4">
+                                <div class="modal-header bg-success text-white rounded-top-4">
+                                    <h3 class="modal-title fw-bold">
+                                        Change password
+                                    </h3>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+
+                                </div>
+                                <div class="modal-body p-4">
+                                    <!------------form------------------------>
+                                    <form action="" method="post" enctype="multipart/form-data">
+                                        <div class="row g-3 mt-1">
+                                            <div class="col-md-12">
+                                                <label for="setEmail" class="form-label ">Email</label>
+                                                <input type="name" class="form-control shadow-sm rounded-3"
+                                                    placeholder="Enter  Email" id="setEmail" name="setEmail"
+                                                    ng-model="setEmail">
+                                            </div>
+                                            <div class="row g-3 mt-1">
+                                                <div class="col-md-12">
+                                                    <label for="oldpwd" class="form-label">Existing passwrod</label>
+                                                    <input type="password" class="form-control shadow-sm rounded-3"
+                                                        placeholder="Enter existing password" id="oldpwd" name="oldpwd"
+                                                        ng-model="oldpwd">
+                                                </div>
+                                            </div>
+                                            <div class="row g-3 mt-1">
+                                                <div class="col-md-12">
+                                                    <label for="newpwd" class="form-label">New Password</label>
+                                                    <input type="password" class="form-control shadow-sm rounded-3"
+                                                        placeholder="Enter new password" id="newpwd" name="newpwd"
+                                                        ng-model="newpwd">
+                                                </div>
+                                            </div>
+                                            <div class="row g-3 mt-1"></div>
+                                            <div class="col-md-6">
+                                                <center><button type="button" class="btn btn-primary rounded-pill px-4"
+                                                        id="UpadatePass" ng-click="doUpdatePass();">Upadate
+                                                        Password</button>
+                                                </center>
+                                            </div>
+                                        </div>
+                                </div>
+
+                            </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

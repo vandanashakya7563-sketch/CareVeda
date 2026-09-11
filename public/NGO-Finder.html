@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
+
+    <link rel="stylesheet" href="/style-ngo-finder.css">
+
+    <style>
+        /* ==========================
+   PAGE HEADING
+========================== */
+
+        .page-heading {
+            background: linear-gradient(135deg, #0f766e, #14b8a6);
+            color: white;
+            padding: 18px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+
+            box-shadow:
+                0 12px 30px rgba(15, 118, 110, .20);
+        }
+
+        .page-heading h2 {
+            margin: 0;
+            font-size: 30px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .page-heading p {
+            margin: 5px 0 0;
+            opacity: .9;
+            font-size: 14px;
+        }
+
+        /* Main Container */
+
+        .container {
+            max-width: 1100px;
+        }
+
+        /* Search Area */
+
+        .form-control {
+            height: 42px;
+            border-radius: 12px;
+            border: 1px solid rgba(15, 118, 110, .18);
+        }
+
+        .form-control:focus {
+            border-color: #0f766e;
+            box-shadow: 0 0 0 .15rem rgba(15, 118, 110, .15);
+        }
+
+        /* NGO Cards */
+
+        .card {
+            background: rgba(255, 255, 255, .75);
+            backdrop-filter: blur(12px);
+            border-radius: 20px !important;
+
+            transition: .3s;
+
+            box-shadow:
+                0 12px 25px rgba(15, 118, 110, .10);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 20px 35px rgba(15, 118, 110, .18);
+        }
+
+        .card-title {
+            color: #0f766e !important;
+        }
+
+        /* Buttons */
+
+        .btn-primary,
+        .btn-success {
+            background: #0f766e !important;
+            border: none !important;
+            border-radius: 12px !important;
+            font-weight: 600;
+        }
+
+        .btn-primary:hover,
+        .btn-success:hover {
+            background: #115e59 !important;
+        }
+
+        /* Modal */
+
+        .modal-content {
+            background: rgba(255, 255, 255, .75);
+            backdrop-filter: blur(16px);
+
+            border: none;
+            border-radius: 20px;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #0f766e, #14b8a6);
+            color: white;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .modal-header .btn-close {
+            filter: brightness(0) invert(1);
+        }
+
+        .table th {
+            background: #e6fffa;
+            color: #134e4a;
+        }
+
+        .table td {
+            background: rgba(255, 255, 255, .6);
+        }
+
+        /* NGO Logo */
+
+        .img-thumbnail {
+            border-radius: 12px;
+            border: none;
+        }
+    </style>
+
+
+    <script>
+        let myModule = angular.module("moduleKuch", []);
+        let mycontroller = myModule.controller("controllerKuch", function ($scope, $http) {
+            //---------------fetch all cities from donor profile-----------------
+            $scope.doFetchAllCities = function () {
+
+                let url = "/fetch-all-cities-ngos";
+                $http.get(url).then(function (resp) {
+
+                    $scope.cityAry = (resp.data);
+                }, function (resp) {
+                    alert(err);
+                });
+            }
+
+
+            //------------show the medicine detals of selected medicine in cards-----------------
+            $scope.doShowNGOs = function () {
+
+                let url = "/fetch-ngos-of-sel-city?cityKuch=" + $scope.selCity;
+
+                $http.get(url).then(function (resp) {
+
+                    $scope.NGOAry = resp.data;
+
+                }, function (err) {
+
+                    alert(err.data);
+
+                });
+
+            }
+            //---------------------- Fetch Selected NGO Details ----------------------
+            $scope.doshowdetails = function (email) {
+
+                // URL banaya aur selected NGO ki email bheji server ko
+
+                let url = "/fetch-ngo-contact-details?emailKuch=" + email;
+
+                // Server ko GET request bheji
+                $http.get(url).then(function (resp) {
+
+                    // resp.data ek array hota hai
+                    // [0] ka matlab array ka pehla object (selected NGO ki details)
+
+                    $scope.ngoObj = resp.data[0];
+
+                    // ngoObj me data store kar diya
+                    // Ab HTML me {{ngoObj.ngo}}, {{ngoObj.city}} etc. use kar sakte hain
+
+
+                }, function (resp) {
+                    alert(err);
+                });
+            }
+
+
+
+        })
+    </script>
+</head>
+
+<body ng-app="moduleKuch" ng-controller="controllerKuch" ng-init="doFetchAllCities(); ">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <div class="container mt-3">
+        <div class="page-heading text-center">
+            <h2>NGO Finder</h2>
+            <p>Find NGOs and Connect Easily</p>
+        </div>
+    </div>
+
+
+    <div class="row container">
+        <div class="col-md-4 mt-2">
+            <label class="form-label fw-bold">City</label>
+
+            <input type="text" class="form-control" placeholder="Type City Name" list="cityList" ng-model="selCity">
+
+            <datalist id="cityList">
+                <option ng-repeat="obj in cityAry" value="{{obj.city}}">
+            </datalist>
+        </div>
+
+
+        <div class="col-md-4 mt-4"><button type="button" class="btn btn-primary" ng-click="doShowNGOs()">
+                SHOW NGOS </button></div>
+
+
+        <div class="row">
+            <div class="col-md-6 mb-4 mt-4" ng-repeat="obj in NGOAry">
+                <div class="card shadow border-0 rounded-4">
+                    <img src="{{obj.picurl}}" class="card-img-top" alt="..." style="height:180px; object-fit:cover;">
+
+                    <div class="card-body  text-center">
+                        <h5 class="card-title fw-bold text-primary">{{obj.ngo}}</h5>
+                        <p class="card-text">
+                            <b>Registered office:</b> {{obj.regoffice}}
+                        </p>
+                        <p class="card-text">
+                            <b>Email :</b> {{obj.email}}
+                        </p>
+                        <p class="card-text">
+                            <b>City :</b> {{obj.city}}
+                        </p>
+
+                        <button class="btn btn-success w-100 rounded-pill" ng-click="doshowdetails(obj.email)"
+                            data-bs-toggle="modal" data-bs-target="#DetailsModal">
+
+                            <i class="fa-solid fa-eye"></i>
+                            Conatct Details
+
+                        </button>
+                    </div>
+
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="DetailsModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Contact NGO</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="table table-bordered table-striped ">
+
+                                        <tr>
+                                            <th width="35%">NGO Name</th>
+                                            <td>{{ngoObj.ngo}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Email</th>
+                                            <td>{{ngoObj.email}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Mobile</th>
+                                            <td>{{ngoObj.contactno}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>City</th>
+                                            <td>{{ngoObj.city}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Registered Office</th>
+                                            <td>{{ngoObj.regoffice}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Since</th>
+                                            <td>{{ngoObj.since}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Chair Person</th>
+                                            <td>{{ngoObj.chairperson}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Registered No.</th>
+                                            <td>{{ngoObj.regnumber}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>NGO Works</th>
+                                            <td>{{ngoObj.ngoworks}}</td>
+                                        </tr>
+
+
+
+                                        <tr>
+                                            <th>NGO Image/LOGO</th>
+                                            <td>
+                                                <img src="{{ngoObj.picurl}}" width="120" class="img-thumbnail">
+                                            </td>
+                                        </tr>
+
+
+
+                                    </table>
+
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    </div>
+
+
+
+
+</body>
+
+</html>

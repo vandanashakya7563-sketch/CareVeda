@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at top left, #ccfbf1, transparent 35%),
+                radial-gradient(circle at bottom right, #dbeafe, transparent 35%),
+                #f1f8f7;
+
+            padding: 35px 15px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+
+            background: rgba(255, 255, 255, .55);
+
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            border: 1px solid rgba(255, 255, 255, .75);
+
+            border-radius: 24px;
+
+            padding: 20px;
+
+            box-shadow:
+                0 20px 45px rgba(15, 118, 110, .15);
+        }
+
+        /* Heading */
+
+        .bg-warning {
+            background: linear-gradient(135deg, #0f766e, #14b8a6) !important;
+
+            color: white !important;
+
+            border-radius: 16px !important;
+
+            padding: 16px !important;
+
+            box-shadow:
+                0 10px 25px rgba(15, 118, 110, .25);
+        }
+
+        .bg-warning {
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        /* Labels */
+
+        .form-label {
+            color: #134e4a;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Inputs */
+
+        .form-control,
+        .form-select {
+
+            height: 42px;
+
+            border-radius: 14px;
+
+            border: 1px solid rgba(15, 118, 110, .18);
+
+            background: rgba(255, 255, 255, .65);
+
+            backdrop-filter: blur(8px);
+
+            transition: .3s;
+
+            box-shadow: none !important;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+
+            border-color: #0f766e;
+
+            box-shadow:
+                0 0 0 .18rem rgba(15, 118, 110, .15) !important;
+        }
+
+        /* Radio Buttons */
+
+        .form-check-input:checked {
+            background-color: #0f766e;
+            border-color: #0f766e;
+        }
+
+        /* File Upload */
+
+        input[type=file] {
+
+            width: 100%;
+
+            background: rgba(255, 255, 255, .45);
+
+            backdrop-filter: blur(8px);
+
+            border: 2px dashed #8dd3c7;
+
+            border-radius: 14px;
+
+            padding: 10px;
+        }
+
+        input[type=file]::file-selector-button {
+
+            background: #0f766e;
+
+            color: white;
+
+            border: none;
+
+            padding: 8px 16px;
+
+            border-radius: 9px;
+
+            margin-right: 10px;
+
+            cursor: pointer;
+        }
+
+        /* Image Preview */
+
+        #prevpic1,
+        #prevpic2 {
+
+            width: 140px !important;
+            height: 140px !important;
+
+            object-fit: cover;
+
+            margin-top: 12px;
+
+            border-radius: 16px;
+
+            border: 2px solid rgba(15, 118, 110, .15);
+
+            background: white;
+
+            box-shadow:
+                0 10px 25px rgba(15, 118, 110, .10);
+        }
+
+        /* Button */
+
+        .btn-primary {
+
+            background: #0f766e !important;
+
+            border: none !important;
+
+            border-radius: 14px;
+
+            padding: 11px 38px;
+
+            font-weight: 600;
+
+            transition: .3s;
+        }
+
+        .btn-primary:hover {
+
+            background: #115e59 !important;
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 10px 20px rgba(15, 118, 110, .25);
+        }
+
+        /* Rows */
+
+        .row {
+            margin-bottom: 4px;
+        }
+
+        /* Responsive */
+
+        @media(max-width:768px) {
+
+            .container {
+                padding: 18px;
+            }
+
+            #prevpic1,
+            #prevpic2 {
+                width: 120px !important;
+                height: 120px !important;
+            }
+        }
+    </style>
+    <script>
+        function doShowPrev(fileCtrl, prev) {
+            const file = fileCtrl.files[0];
+
+            if (file) {
+                prev.src = URL.createObjectURL(file);
+            }
+        }
+    </script>
+    <script>
+        function enableDisableAmount() {
+
+            if (document.getElementById("sale").checked) {
+                document.getElementById("amount").disabled = false;
+            }
+            else {
+                document.getElementById("amount").disabled = true;
+                document.getElementById("amount").value = "";
+            }
+
+        }
+    </script>
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    <div class="container border shadow py-2 rounded">
+        <div class="row ">
+            <div class="class col-md-12 bg-warning text-center py-2 rounded">
+                AVAIL EUIPMENTS
+            </div>
+        </div>
+        <form action="/avail-for-needys" method="post" enctype="multipart/form-data">
+            <div class="row g-3 ">
+                <div class="col-md-6">
+                    <label for="Email" class="form-label">Email</label>
+                    <input type="name" class="form-control" id="Email" name="Email">
+                </div>
+
+            </div>
+            <div class="row  mt-2">
+                <div class="col-md-6">
+                    <label for="equipType" class="form-label">Medical Equipment Type</label>
+                    <input type="text" class="form-control" id="equipType" name="equipType">
+                </div>
+                <div class="col-md-3">
+                    <label for="condition" class="form-label"> Condition</label>
+                    <select class="form-select" name="condition" id="condition">
+                        <option selected>Select condition</option>
+                        <option value="old">Old</option>
+                        <option value="new">new</option>
+
+                    </select>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-3 mt-2">
+                    <label class="form-label">Want to</label>
+                    <br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="type" id="donation" value="donation"
+                            onclick="enableDisableAmount()">
+                        <label class="form-check-label" for="donation">DONATE</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="type" id="sale" value="sale"
+                            onclick="enableDisableAmount()">
+                        <label class="form-check-label" for="sale">SALE</label>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <label for="amount" class="form-label">Amount</label>
+                    <input type="text" class="form-control" id="amount" name="amount" disabled>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="class col-4">
+                    Upload Equipment pic1:
+                    <br>
+                    <input type="file" name="equipPic1" onchange="doShowPrev(this,prevpic1)">
+                    <br>
+                    <img src="" id="prevpic1" alt="" width="100" height="100">
+                    </p>
+                </div>
+                <div class="class col-4">
+                    Upload Equipment pic2:
+                    <br>
+                    <input type="file" name="equipPic2" onchange="doShowPrev(this,prevpic2)">
+                    <br>
+                    <img src="" id="prevpic2" alt="" width="100" height="100">
+                    </p>
+                </div>
+            </div>
+            <div class="row g-3 ">
+                <div class="col-md-6">
+                    <label for="info" class="form-label">Other INFO</label>
+                    <input type="text" class="form-control" id="info" name="info">
+                </div>
+
+            </div>
+
+            <div class="row mt-2">
+                <div class="col-6">
+                    <center><button type="submit" class="btn btn-primary">Avail FOR NEEDYS </button></center>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+
+</body>
+
+</html>

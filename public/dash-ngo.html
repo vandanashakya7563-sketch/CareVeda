@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NGO Dashboard</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #f4f8fb;
+        }
+
+        .card {
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .card img {
+            height: 220px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+
+            <a class="navbar-brand fw-bold" href="#">
+                NGO Dashboard
+            </a>
+
+            <div class="ms-auto">
+                <a href="/" class="btn btn-light">Logout</a>
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- Dashboard Cards -->
+
+    <div class="container mt-5">
+
+        <div class="row justify-content-center g-4">
+
+            <!-- Profile -->
+
+            <div class="col-md-3">
+                <div class="card text-center h-100">
+
+                    <img src="pics/profile.jpg" class="card-img-top">
+
+                    <div class="card-body">
+                        <h5 class="card-title">Profile</h5>
+
+                        <a href="/NGO-REGISTRATION" class="btn btn-primary">
+                            Open Profile
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Medicine Finder -->
+
+            <div class="col-md-3">
+                <div class="card text-center h-100">
+
+                    <img src="pics/medicine.jpg" class="card-img-top">
+
+                    <div class="card-body">
+                        <h5 class="card-title">Medicine Finder</h5>
+
+                        <a href="/medicine-finder" class="btn btn-success">
+                            Find Medicine
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Equipment Finder -->
+
+            <div class="col-md-3">
+                <div class="card text-center h-100">
+
+                    <img src="pics/equipment.jpg" class="card-img-top">
+
+                    <div class="card-body">
+                        <h5 class="card-title">Equipment Finder</h5>
+
+                        <a href="/Equip-finder" class="btn btn-warning">
+                            Find Equipment
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- NGO Finder -->
+
+            <div class="col-md-3">
+                <div class="card text-center h-100">
+
+                    <img src="pics/ngo.jpg" class="card-img-top">
+
+                    <div class="card-body">
+                        <h5 class="card-title">NGO Finder</h5>
+
+                        <a href="/NGO-finder" class="btn btn-info">
+                            Find NGO
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

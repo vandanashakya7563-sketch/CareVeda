@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+        <script>
+            function setEmail(){
+                document.getElementById("Email").value=localStorage.getItem("activeuser");
+                document.getElementById("Email").readonly=true;
+            }
+        </script>
+    <script>
+        function doShowPrev(fileCtrl, prev) {
+            const file = fileCtrl.files[0];
+
+            if (file) {
+                prev.src = URL.createObjectURL(file);
+            }
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+
+
+            //------------------------------
+            $("#getProfiledata").click(function () {
+                let obj =
+                {
+                    url: "/get-profile-data-btn-fetch",
+                    data: {
+                        emailIDkuch: $("#Email").val()
+                    }
+                }
+                $.ajax(obj).then(function (jsonAry) {
+                    alert(JSON.stringify(jsonAry));
+                    $("#prevadhar").prop("src", jsonAry[0].acardpath);
+                    $("#prevprofile").prop("src", jsonAry[0].profilePicpath);
+                    $("#txtname").val(jsonAry[0].name);
+                    $("#mobileNum").val(jsonAry[0].mobile);
+                    $("#city").val(jsonAry[0].city);
+
+                }).fail(function (err) {
+                    alert(err);
+                })
+
+            })
+
+
+        })
+    </script>
+
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    min-height:100vh;
+
+    background:
+    radial-gradient(circle at top left,#ccfbf1,transparent 35%),
+    radial-gradient(circle at bottom right,#dbeafe,transparent 35%),
+    #f1f8f7;
+
+    padding:35px 15px;
+}
+
+/* Main Container */
+
+.container{
+    max-width:1000px;
+    margin:auto;
+
+    background:rgba(255,255,255,.55);
+
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.75);
+
+    border-radius:24px;
+
+    padding:25px;
+
+    box-shadow:
+    0 20px 45px rgba(15,118,110,.15);
+}
+
+/* Heading */
+
+.bg-warning{
+    background:linear-gradient(135deg,#0f766e,#14b8a6)!important;
+
+    color:white!important;
+
+    border-radius:16px!important;
+
+    padding:16px!important;
+
+    font-size:26px;
+    font-weight:700;
+    letter-spacing:1px;
+
+    box-shadow:
+    0 10px 25px rgba(15,118,110,.25);
+}
+
+/* Labels */
+
+.form-label{
+    color:#134e4a;
+    font-size:14px;
+    font-weight:600;
+}
+
+/* Inputs */
+
+.form-control{
+    height:48px;
+
+    border-radius:14px;
+
+    border:1px solid rgba(15,118,110,.18);
+
+    background:rgba(255,255,255,.65);
+
+    backdrop-filter:blur(8px);
+
+    transition:.3s;
+
+    box-shadow:none!important;
+}
+
+.form-control::placeholder{
+    color:#94a3b8;
+}
+
+.form-control:focus{
+    background:rgba(255,255,255,.9);
+
+    border-color:#0f766e;
+
+    box-shadow:
+    0 0 0 .18rem rgba(15,118,110,.15)!important;
+}
+
+/* File Upload */
+
+input[type=file]{
+    width:100%;
+
+    background:rgba(255,255,255,.45);
+
+    backdrop-filter:blur(8px);
+
+    border:2px dashed #8dd3c7;
+
+    border-radius:14px;
+
+    padding:10px;
+}
+
+input[type=file]::file-selector-button{
+    background:#0f766e;
+
+    color:white;
+
+    border:none;
+
+    padding:8px 16px;
+
+    border-radius:10px;
+
+    margin-right:10px;
+
+    cursor:pointer;
+}
+
+/* Image Preview */
+
+#prevadhar,
+#prevprofile{
+
+    width:220px !important;
+    height:220px !important;
+
+    object-fit:cover;
+
+    border-radius:20px;
+
+    margin-top:12px;
+
+    background:white;
+
+    border:2px solid rgba(15,118,110,.15);
+
+    box-shadow:
+    0 10px 25px rgba(15,118,110,.10);
+
+    transition:.3s;
+}
+
+#prevadhar:hover,
+#prevprofile:hover{
+    transform:translateY(-4px);
+
+    box-shadow:
+    0 18px 35px rgba(15,118,110,.18);
+}
+
+/* Buttons */
+
+.btn-primary{
+
+    background:#0f766e!important;
+
+    border:none!important;
+
+    border-radius:14px;
+
+    padding:11px 30px;
+
+    font-weight:600;
+
+    transition:.3s;
+}
+
+.btn-primary:hover{
+
+    background:#115e59!important;
+
+    transform:translateY(-2px);
+
+    box-shadow:
+    0 10px 20px rgba(15,118,110,.25);
+}
+
+/* Spacing */
+
+.row{
+    margin-bottom:12px;
+}
+
+/* Mobile */
+
+@media(max-width:768px){
+
+    .container{
+        padding:18px;
+    }
+
+    #prevadhar,
+    #prevprofile{
+        width:180px!important;
+        height:180px!important;
+    }
+
+    .btn-primary{
+        width:100%;
+        margin-top:10px;
+    }
+}
+</style>
+</head>
+
+<body onload="setEmail()">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    <div class="container border shadow py-2 rounded">
+        <div class="row ">
+            <div class="class col-md-12 bg-warning text-center py-2 rounded">
+                DONOR PROFILE
+            </div>
+        </div>
+        <form action="/send-donor-data-to-server" method="post" enctype="multipart/form-data">
+            <div class="row g-3 mt-1">
+                <div class="col-md-6">
+                    <label for="Email" class="form-label">Email</label>
+                    <input type="name" class="form-control" id="Email" name="Email">
+                </div>
+                <div class="col-md-6">
+                    <center><button type="button" class="btn btn-primary" id="getProfiledata">Get Profile data</button>
+                    </center>
+                </div>
+
+            </div>
+            <div class="row  mt-2">
+                <div class="col-md-6">
+                    <label for="txtname" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="txtname" name="txtname" required>
+                </div>
+                <div class="col-md-3">
+                    <label for="mobileNum" class="form-label">Mobile Number</label>
+                    <input type="text" class="form-control" id="mobileNum" name="mobileNum" required>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-7">
+                    <label for="Address" class="form-label">Address</label>
+                    <input type="text" class="form-control" id="Address" placeholder="1234 Main St" name="Address" required>
+                </div>
+                <div class="col-md-5">
+                    <label for="city" class="form-label">City</label>
+                    <input type="text" class="form-control" id="city" name="city" required>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="class col-4">
+                    Upload Adhar Card:
+                    <br>
+                    <input type="file" name="adharPic" onchange="doShowPrev(this,prevadhar)" required>
+                    <br>
+                    <img src="" id="prevadhar" alt="" width="100" height="100">
+                    </p>
+                </div>
+                <div class="class col-4">
+                    Upload profile pic:
+                    <br>
+                    <input type="file" name="profilePic" onchange="doShowPrev(this,prevprofile)"  required>
+                    <br>
+                    <img src="" id="prevprofile" alt="" width="100" height="100">
+                    </p>
+                </div>
+            </div>
+
+            <div class="row mt-2">
+                <div class="col-6">
+                    <center><button type="submit" class="btn btn-primary  ">Send data to server</button></center>
+                </div>
+                <div class="col-6">
+                    <center><button type="submit" class="btn btn-primary" formaction="/modify-data">modify data</button>
+                    </center>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+</body>
+
+</html>

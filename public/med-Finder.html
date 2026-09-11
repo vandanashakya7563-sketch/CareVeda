@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    min-height:100vh;
+    background:
+        radial-gradient(circle at top left,#ccfbf1,transparent 35%),
+        radial-gradient(circle at bottom right,#dbeafe,transparent 35%),
+        #f1f8f7;
+    padding:25px 15px;
+}
+
+/* Main Container */
+
+.container{
+    max-width:1200px;
+    margin:auto;
+    background:rgba(255,255,255,.55);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border:1px solid rgba(255,255,255,.75);
+    border-radius:24px;
+    padding:20px;
+    box-shadow:0 20px 45px rgba(15,118,110,.15);
+}
+
+/* Labels */
+
+.form-label{
+    color:#134e4a;
+    font-weight:600;
+    font-size:14px;
+}
+
+/* Inputs */
+
+.form-control{
+    border-radius:14px;
+    border:1px solid rgba(15,118,110,.18);
+    background:rgba(255,255,255,.65);
+    backdrop-filter:blur(8px);
+    transition:.3s;
+    height:42px;
+}
+
+.form-control:focus{
+    border-color:#0f766e;
+    box-shadow:0 0 0 .18rem rgba(15,118,110,.15)!important;
+}
+
+/* Button */
+
+.btn-primary{
+    background:#0f766e!important;
+    border:none!important;
+    border-radius:14px;
+    padding:10px 28px;
+    font-weight:600;
+}
+
+.btn-primary:hover{
+    background:#115e59!important;
+    transform:translateY(-2px);
+}
+
+.btn-success{
+    border-radius:14px;
+    font-weight:600;
+}
+
+/* Cards */
+
+.card{
+    background:rgba(255,255,255,.65);
+    backdrop-filter:blur(12px);
+    border:none;
+    border-radius:22px;
+    overflow:hidden;
+    transition:.35s;
+    box-shadow:0 10px 25px rgba(15,118,110,.12);
+}
+
+.card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 18px 35px rgba(15,118,110,.18);
+}
+
+.card-img-top{
+    height:220px!important;
+    object-fit:cover;
+}
+
+.card-title{
+    color:#0f766e!important;
+}
+
+.card-text{
+    font-size:14px;
+    color:#374151;
+}
+
+/* Modal */
+
+.modal-content{
+    border:none;
+    border-radius:22px;
+    background:rgba(255,255,255,.88);
+    backdrop-filter:blur(18px);
+}
+
+.modal-header{
+    background:linear-gradient(135deg,#0f766e,#14b8a6);
+    color:white;
+    border-radius:22px 22px 0 0;
+}
+
+.modal-title{
+    font-weight:700;
+}
+
+.table{
+    margin-bottom:0;
+}
+
+.table th{
+    background:#ecfdf5;
+    color:#134e4a;
+}
+
+.table td{
+    vertical-align:middle;
+}
+
+.img-thumbnail{
+    border-radius:12px;
+}
+
+/* Search Row */
+
+.row{
+    margin-bottom:8px;
+}
+
+/* Mobile */
+
+@media(max-width:768px){
+
+    .container{
+        padding:15px;
+    }
+
+    .card-img-top{
+        height:180px!important;
+    }
+
+    .btn-primary{
+        width:100%;
+        margin-top:10px;
+    }
+}
+</style>
+    <script>
+        let myModule = angular.module("moduleKuch", []);
+        let mycontroller = myModule.controller("controllerKuch", function ($scope, $http) {
+            //---------------fetch all cities from donor profile-----------------
+            $scope.doFetchAllCities = function () {
+
+                let url = "/fetch-all-cities";
+                $http.get(url).then(function (resp) {
+
+                    $scope.cityAry = (resp.data);
+                }, function (resp) {
+                    alert(err);
+                });
+            }
+
+            //-------------acc to the city --medicine available in that specific city
+            $scope.doFetchMedname = function () {
+
+                let url = "/fetch-all-medicine-name-in-that-selected-city?cityKuch=" + $scope.selCity;
+                $http.get(url).then(function (resp) {
+
+                    $scope.medAry = (resp.data);
+                }, function (resp) {
+                    alert(err);
+                });
+            }
+            //------------show the medicine detals of selected medicine in cards-----------------
+            $scope.doShowSelMed = function () {
+
+                let url = "/fetch-all-details-of-sel-medcine?medKuch=" +
+                    $scope.selMedicine +
+                    "&cityKuch=" +
+                    $scope.selCity;
+
+                $http.get(url).then(function (resp) {
+
+                    $scope.SelMedAry = resp.data;
+
+                }, function (err) {
+
+                    alert(err.data);
+
+                });
+
+            }
+
+            $scope.doshowDonorDetails = function (rid) {
+                let url = "/fetch-donor-details?ridKuch=" + rid;
+                $http.get(url).then(function (resp) {
+
+                    $scope.donorObj = resp.data[0];
+
+                }, function (resp) {
+                    alert(err);
+                });
+            }
+
+
+
+        })
+    </script>
+</head>
+
+<body ng-app="moduleKuch" ng-controller="controllerKuch" ng-init="doFetchAllCities(); ">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+
+    <div class="row container">
+
+        <div class="row mb-3">
+    <div class="col-md-12 text-center py-3 rounded"
+         style="background:linear-gradient(135deg,#0f766e,#14b8a6); color:white;">
+
+        <h2 class="fw-bold m-0">Medicine Finder</h2>
+        <p class="mb-0 mt-1">Search Available Medicines Near You</p>
+
+    </div>
+</div>
+        <div class="col-md-4 mt-2">
+            <label class="form-label fw-bold">City</label>
+
+            <input type="text" class="form-control" placeholder="Type City Name" list="cityList" ng-model="selCity"
+                ng-change="doFetchMedname()">
+
+            <datalist id="cityList">
+                <option ng-repeat="obj in cityAry" value="{{obj.city}}">
+            </datalist>
+        </div>
+
+        <div class="col-md-4 mt-2">
+            <label class="form-label fw-bold">Medicine Name</label>
+
+            <input type="text" class="form-control" placeholder="Type Medicine Name" list="medicineList"
+                ng-model="selMedicine">
+
+            <datalist id="medicineList">
+                <option ng-repeat="obj in medAry" value="{{obj.medname}}">
+            </datalist>
+        </div>
+
+        <div class="col-md-4 mt-4"><button type="button" class="btn btn-primary" ng-click="doShowSelMed()">Find
+                Medicine</button></div>
+
+
+        <div class="row">
+            <div class="col-md-4 mb-4" ng-repeat="obj in SelMedAry">
+                <div class="card shadow border-0 rounded-4">
+                    <img src="{{obj.medpicURL}}" class="card-img-top" alt="..." style="height:220px; object-fit:cover;">
+
+                    <div class="card-body text-center">
+                        <h5 class="card-title fw-bold text-primary">{{obj.medname}}</h5>
+                        <p class="card-text">
+                            <b>Comapany :</b> {{obj.company}}
+                        </p>
+                        <p class="card-text">
+                            <b>Expiry date :</b> {{obj.expdate | date:'dd-MM-yyyy'}}
+                        </p>
+                        <p class="card-text">
+                            <b>Packing :</b> {{obj.packing}}
+                        </p>
+                        <p class="card-text">
+                            <b>Email :</b> {{obj.email}}
+                        </p>
+                        <p class="card-text">
+                            <b>Other Info :</b> {{obj.info}}
+                        </p>
+                        <button class="btn btn-success w-100 rounded-pill" ng-click="doshowDonorDetails(obj.r_ID)"
+                            data-bs-toggle="modal" data-bs-target="#DonorDetailsModal">
+
+                            <i class="fa-solid fa-eye"></i>
+                            View Donor Details
+
+                        </button>
+                    </div>
+
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="DonorDetailsModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true" >
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Donor Details</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="table table-bordered table-striped " >
+
+                                        <tr>
+                                            <th width="35%">Donor Name</th>
+                                            <td>{{donorObj.name}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Email</th>
+                                            <td>{{donorObj.email}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Mobile</th>
+                                            <td>{{donorObj.mobile}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>City</th>
+                                            <td>{{donorObj.city}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Address</th>
+                                            <td>{{donorObj.address}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Profile Photo</th>
+                                            <td>
+                                                <img src="{{donorObj.profilePicpath}}" width="120"
+                                                    class="img-thumbnail">
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Aadhaar Card</th>
+                                            <td>
+                                                <img src="{{donorObj.acardpath}}" width="120" class="img-thumbnail">
+                                            </td>
+                                        </tr>
+
+                                    </table>
+
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    </div>
+
+
+
+
+</body>
+
+</html>

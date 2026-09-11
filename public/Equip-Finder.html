@@ -1,0 +1,416 @@
+`
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Equipment Finder</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body{
+    font-family:'Inter',sans-serif;
+    background:
+    radial-gradient(circle at top left,#ccfbf1,transparent 35%),
+    radial-gradient(circle at bottom right,#dbeafe,transparent 35%),
+    #f1f8f7;
+    padding:20px 10px;
+}
+
+/* Main Box */
+
+.container{
+    background:rgba(255,255,255,.55);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.7);
+    border-radius:24px;
+
+    box-shadow:
+    0 20px 40px rgba(15,118,110,.12);
+
+    padding:20px;
+}
+
+/* Header */
+
+.bg-primary{
+    background:linear-gradient(135deg,#0f766e,#14b8a6)!important;
+    border-radius:16px;
+    box-shadow:0 10px 25px rgba(15,118,110,.20);
+}
+
+.bg-primary h3{
+    margin:0;
+    font-weight:700;
+}
+
+/* Labels */
+
+.form-label{
+    font-size:14px;
+    font-weight:600;
+    color:#134e4a;
+}
+
+/* Inputs */
+
+.form-control{
+    border-radius:14px;
+    border:1px solid rgba(15,118,110,.15);
+    background:rgba(255,255,255,.75);
+    height:42px;
+}
+
+.form-control:focus{
+    border-color:#0f766e;
+    box-shadow:0 0 0 .18rem rgba(15,118,110,.15);
+}
+
+/* Radio */
+
+.form-check-input:checked{
+    background-color:#0f766e;
+    border-color:#0f766e;
+}
+
+/* Search Button */
+
+.btn-primary{
+    background:#0f766e!important;
+    border:none!important;
+    border-radius:14px;
+    font-weight:600;
+}
+
+.btn-primary:hover{
+    background:#115e59!important;
+}
+
+/* Cards */
+
+.card{
+    border:none!important;
+    overflow:hidden;
+    background:rgba(255,255,255,.75);
+    backdrop-filter:blur(10px);
+    border-radius:20px!important;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 15px 30px rgba(15,118,110,.18);
+}
+
+.card-img-top{
+    height:220px!important;
+    object-fit:cover;
+}
+
+.card-title{
+    color:#0f766e;
+}
+
+/* Contact Button */
+
+.btn-success{
+    background:#14b8a6!important;
+    border:none!important;
+}
+
+.btn-success:hover{
+    background:#0f766e!important;
+}
+
+/* Modal */
+
+.modal-content{
+    border:none;
+    border-radius:22px;
+    overflow:hidden;
+}
+
+.modal-header{
+    background:linear-gradient(135deg,#0f766e,#14b8a6);
+    color:white;
+}
+
+.table th{
+    color:#134e4a;
+    width:35%;
+}
+
+/* Reduce spacing */
+
+.row{
+    margin-bottom:5px;
+}
+
+hr{
+    margin:15px 0;
+}
+</style>
+
+    <script>
+
+        let myModule = angular.module("moduleKuch", []);
+
+        let myController = myModule.controller("controllerKuch", function ($scope, $http) {
+
+            //================ Fetch All Cities =================
+
+            $scope.doFetchAllCities = function () {
+                let url = "/fetch-all-equipment-cities";
+                $http.get(url).then(function (resp) {
+                    $scope.cityAry = resp.data;
+                }, function (err) {
+                    alert(err.data);
+                });
+
+            }
+
+            //================ Search Equipments =================
+
+            $scope.doSearchEquipment = function () {
+
+                let url = "/search-equipment?cityKuch=" + $scope.selCity + "&typeKuch=" + $scope.selType;
+
+                $http.get(url).then(function (resp) {
+
+                    $scope.equipAry = resp.data;
+
+                }, function (err) {
+
+                    alert(err.data);
+
+                });
+
+            }
+
+            //================ Fetch Selected Equipment Owner Details =================
+
+            $scope.doShowEquipDetails = function (rid) {
+
+                // selected equipment owner ki rid server ko bheji
+                let url = "/fetch-equipment-details?ridKuch=" + rid;
+
+                $http.get(url).then(function (resp) {
+
+                    // server array bhejta hai
+                    // pehla object equipObj me store kar diya
+
+                    $scope.equipObj = resp.data[0];
+
+                }, function (err) {
+                    alert(err.data);
+                });
+            }
+        });
+
+    </script>
+
+</head>
+
+<body ng-app="moduleKuch" ng-controller="controllerKuch" ng-init="doFetchAllCities()">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <div class="container mt-4 shadow rounded border p-4">
+
+        <div class="row bg-primary text-white text-center rounded mb-4">
+            <div class="col-md-12 py-2">
+                <h3>Equipment Finder</h3>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-4">
+                <label class="form-label fw-bold"> City </label>
+                <input type="text" class="form-control" placeholder="Type City Name" list="cityList" ng-model="selCity">
+
+                <datalist id="cityList">
+                    <option ng-repeat="obj in cityAry" value="{{obj.city}}">
+                </datalist>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <label class="form-label fw-bold"> Requirement </label>
+
+                <div class="mt-2">
+                    <div class="form-check form-check-inline">
+
+                        <input class="form-check-input" type="radio" name="type" value="sale" ng-model="selType">
+
+                        <label class="form-check-label"> Want To Buy </label>
+
+                    </div>
+
+                    <div class="form-check form-check-inline">
+
+                        <input class="form-check-input" type="radio" name="type" value="donation" ng-model="selType">
+                        <label class="form-check-label"> Borrow </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-2 d-flex align-items-end">
+                <button class="btn btn-primary w-100" ng-click="doSearchEquipment()"> Search </button>
+            </div>
+        </div>
+
+
+        <hr class="my-4">
+
+        <div class="row">
+
+            <div class="col-md-4 mb-4" ng-repeat="obj in equipAry">
+
+                <div class="card shadow border-0 rounded-4 h-100"> <!--card----------->
+
+                    <img src="{{obj.pic1url}}" class="card-img-top" style="height:220px;object-fit:cover;">
+
+                    <div class="card-body text-center">
+                        <h5 class="fw-bold text-primary"> {{obj.euipment_type}}</h5>
+
+
+                        <p> <b>Available For :</b> {{obj.type}} </p>
+
+                        <p> <b>City :</b> {{obj.city}} </p>
+
+                        <p>
+                            <b>Amount :</b> ₹ {{obj.amount}}
+                        </p>
+
+                        <button class="btn btn-success w-100 rounded-pill" ng-click="doShowEquipDetails(obj.r_ID)"
+                            data-bs-toggle="modal" data-bs-target="#equipModal">
+                            Contact Details
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- Equipment Details Modal -->
+
+            <div class="modal fade" id="equipModal" tabindex="-1">
+
+                <div class="modal-dialog modal-lg">
+
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h4> Equipment Details </h4>
+                            <button class="btn-close" data-bs-dismiss="modal"> </button>
+                        </div>
+
+                        <div class="modal-body">
+
+                            <table class="table table-bordered table-striped">
+                                <tr>
+                                    <th width="35%"> Owner Name </th>
+                                    <td>{{equipObj.name}} </td>
+                                </tr>
+
+                                <tr>
+                                    <th> Email </th>
+                                    <td> {{equipObj.email}} </td>
+                                </tr>
+
+                                <tr>
+                                    <th> Mobile </th>
+                                    <td> {{equipObj.mobile}} </td>
+                                </tr>
+
+                                <tr>
+                                    <th> City </th>
+                                    <td> {{equipObj.city}} </td>
+                                </tr>
+
+                                <tr>
+                                    <th> Address </th>
+                                    <td>{{equipObj.address}} </td>
+                                </tr>
+
+                                <tr>
+                                    <th>Equipment </th>
+                                    <td>{{equipObj.euipment_type}} </td>
+                                </tr>
+
+                                <tr>
+                                    <th> Condition </th>
+                                    <td> {{equipObj.equip_condition}} </td>
+                                </tr>
+
+                                <tr>
+                                    <th> Available For </th>
+                                    <td> {{equipObj.type}} </td>
+                                </tr>
+
+                                <tr>
+                                    <th> Amount </th>
+                                    <td> ₹ {{equipObj.amount}} </td>
+                                </tr>
+
+                                <tr>
+                                    <th> Other Info </th>
+                                    <td> {{equipObj.info}}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Equipment Image 1</th>
+                                    <td>
+                                        <img src="{{equipObj.pic1url}}" width="150" class="img-thumbnail">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th> Equipment Image 2 </th>
+                                    <td>
+                                        <img src="{{equipObj.pic2url}}" width="150" class="img-thumbnail">
+                                    </td>
+
+                                </tr>
+
+                            </table>
+
+                        </div>
+
+                        <div class="modal-footer">
+
+                            <button class="btn btn-secondary" data-bs-dismiss="modal">
+
+                                Close
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

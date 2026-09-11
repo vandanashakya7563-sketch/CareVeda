@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    min-height:100vh;
+    background:
+        radial-gradient(circle at top left,#ccfbf1,transparent 35%),
+        radial-gradient(circle at bottom right,#dbeafe,transparent 35%),
+        #f1f8f7;
+    padding:25px 15px;
+}
+
+.admin-container{
+    max-width:1400px;
+    margin:auto;
+    background:rgba(255,255,255,.55);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border:1px solid rgba(255,255,255,.75);
+    border-radius:24px;
+    padding:20px;
+    box-shadow:0 20px 45px rgba(15,118,110,.15);
+}
+
+.admin-header{
+    background:linear-gradient(135deg,#0f766e,#14b8a6);
+    color:white;
+    border-radius:16px;
+    padding:15px;
+    text-align:center;
+    margin-bottom:20px;
+    box-shadow:0 10px 25px rgba(15,118,110,.25);
+}
+
+.admin-header h3{
+    margin:0;
+    font-weight:700;
+}
+
+.table{
+    background:white;
+    border-radius:18px;
+    overflow:hidden;
+    margin-bottom:0;
+}
+
+.table thead th,
+.table tr:first-child th{
+    background:#0f766e;
+    color:white;
+    text-align:center;
+    vertical-align:middle;
+    border:none;
+    padding:14px;
+}
+
+.table td{
+    vertical-align:middle;
+    text-align:center;
+}
+
+.table tbody tr:hover{
+    background:#f0fdfa;
+}
+
+.btn{
+    border-radius:12px;
+    font-weight:600;
+}
+
+.btn-danger{
+    background:#dc2626;
+    border:none;
+}
+
+.btn-success{
+    border:none;
+}
+
+.btn-dark{
+    border:none;
+}
+
+.status-active{
+    color:#16a34a;
+    font-weight:700;
+}
+
+.status-blocked{
+    color:#dc2626;
+    font-weight:700;
+}
+
+@media(max-width:768px){
+
+    .admin-container{
+        padding:10px;
+    }
+
+    .table{
+        font-size:12px;
+    }
+
+    .btn{
+        padding:4px 8px;
+        font-size:11px;
+    }
+}
+</style>
+    <script>
+        let myModule = angular.module("moduleKuch", []);
+        let mycontroller = myModule.controller("controllerKuch", function ($scope, $http) {
+
+            $scope.doShowAllUsers = function () 
+            {
+                let url = " /admin-users-data-fetch";
+                $http.get(url).then(function (resp) {
+                    $scope.jsonAry = (resp.data);
+                }, function (resp) {
+                    alert(err);
+                });
+            }
+
+            //---delete function
+            $scope.dodelete = function(EmailKuch){
+                let url = "/do-delete?emailKeyKuch="+EmailKuch;
+                $http.get(url).then(function (resp) {
+                    alert(JSON.stringify(resp.data))
+
+                    $scope.doShowAllUsers(); 
+
+                }, function (resp) {
+                    alert(err);
+                });
+
+            }
+
+            //---Block--
+            $scope.doblock = function(EmailKuch){
+                let url = "/do-block?emailKeyKuch="+EmailKuch;
+                $http.get(url).then(function (resp) {
+                    alert(JSON.stringify(resp.data))
+
+                    $scope.doShowAllUsers(); 
+
+                }, function (resp) {
+                    alert(err);
+                });
+
+            }
+             //---Resume-------------
+            $scope.doresume = function(EmailKuch){
+                let url = "/do-Resume?emailKeyKuch="+EmailKuch;
+                $http.get(url).then(function (resp) {
+                    alert(JSON.stringify(resp.data))
+
+                    $scope.doShowAllUsers(); 
+
+                }, function (resp) {
+                    alert(err);
+                });
+
+            }
+
+        })
+    </script>
+</head>
+
+<body ng-app="moduleKuch" ng-controller="controllerKuch"  ng-init="doShowAllUsers()">
+  <!-- <center>
+        <input type="button" ng-click="doShowAllUsers();" value="fetch all records of Users">
+    </center>  -->
+    <table class="table table-bordered" >
+        <tr>
+      <th>Sr no.</th> <th>Email</th> <th>Password</th> <th>User Type</th> <th>Date</th> <th>Status</th>  <th>Block User</th> <th>Resume User</th><th>Delete user</th>
+      </tr>
+
+      <tr ng-repeat = "obj in jsonAry">
+         <td>{{$index+1}}</td>
+        <td>{{obj.email}}</td>
+        <td>{{obj.pwd}}</td>   <!--database me jo name h vo dena h -->
+        <td>{{obj.utype}}</td>
+        <td>{{obj.dos}}</td>
+        <td>{{obj.active}}</td>
+        <td> 
+            <center>
+                <button type="button" class="btn btn-danger" ng-click="doblock(obj.email);">Block</button>
+            </center>
+        </td>
+        <td> 
+            <center>
+                <button type="button" class="btn btn-success" ng-click="doresume(obj.email);">Resume</button>
+            </center>
+        </td>
+        <td>
+            <center>
+                <button type="button" class="btn btn-dark" ng-click="dodelete(obj.email);">Delete</button>
+            </center>
+        </td>
+      </tr>
+    </table>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+
+</html>
