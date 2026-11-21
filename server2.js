@@ -26,13 +26,16 @@ app.use("/pics", express.static("pics"))   // agar pics folder me se pics uthani
 
 var mysql = require("mysql2");
 let url = process.env.AIVEN_URL;
-let mysqlCon = mysql.createConnection(url);
-mysqlCon.connect(function (err) {
-   if (err == null)
-      console.log("connected succesfully");
-   else
-      console.log(err.message);
-})
+// let mysqlCon = mysql.createConnection(url);
+// mysqlCon.connect(function (err) {
+//   if (err == null)
+//      console.log("connected succesfully");
+//   else
+//      console.log(err.message);
+let mysqlCon = mysql.createPool(url);
+
+console.log("MySQL connection pool created successfully");
+})  -
 
 
 //============using AJAX=================//
