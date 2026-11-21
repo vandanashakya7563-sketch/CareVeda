@@ -1,133 +1,456 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NGO Dashboard</title>
+    <title>NGO Dashboard - CareVeda</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
     <style>
+
+        /* ================= BODY ================= */
+
         body {
-            background: #f4f8fb;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+
+            background:
+            radial-gradient(circle at top left, #b2dfd5, transparent 35%),
+            radial-gradient(circle at bottom right, #c5d9e8, transparent 35%),
+            #dceae8;
+
+            padding-bottom: 40px;
         }
 
+
+        /* ================= NAVBAR ================= */
+
+        .dashboard-nav {
+
+            background: linear-gradient(
+                135deg,
+                #134e4a,
+                #0f766e,
+                #115e59
+            );
+
+            padding: 15px 0;
+
+            box-shadow: 0 8px 25px rgba(15, 78, 74, .22);
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: .5px;
+
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-circle {
+
+            width: 43px;
+            height: 43px;
+
+            border-radius: 50%;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background: rgba(255,255,255,.18);
+
+            border: 1px solid rgba(255,255,255,.35);
+
+            color: white;
+            font-size: 19px;
+
+            margin-right: 10px;
+        }
+
+        .dashboard-heading {
+
+            color: white;
+            font-size: 21px;
+            font-weight: 600;
+            letter-spacing: .5px;
+        }
+
+        .logout-btn {
+
+            background: rgba(255,255,255,.95);
+            color: #115e59 !important;
+
+            border: 1px solid rgba(255,255,255,.5);
+
+            border-radius: 12px;
+
+            padding: 9px 22px;
+
+            font-weight: 600;
+
+            transition: .3s;
+            text-decoration: none;
+        }
+
+        .logout-btn:hover {
+
+            background: #14b8a6;
+            color: white !important;
+
+            transform: translateY(-2px);
+
+            box-shadow: 0 8px 18px rgba(0,0,0,.15);
+        }
+
+
+        /* ================= DASHBOARD SECTION ================= */
+
+        .dashboard-container {
+            padding-top: 45px;
+        }
+
+        .dashboard-heading-main {
+
+            color: #134e4a;
+            font-weight: 700;
+            font-size: 30px;
+
+            margin-bottom: 10px;
+        }
+
+        .dashboard-subtitle {
+            color: #52736e;
+            font-size: 15px;
+            margin-bottom: 35px;
+        }
+
+
+        /* ================= CARDS ================= */
+
         .card {
-            transition: 0.3s;
+
+            border: 1px solid rgba(255,255,255,.8) !important;
+
+            border-radius: 22px !important;
+
+            overflow: hidden;
+
+            background: rgba(255,255,255,.68);
+
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            box-shadow:
+            0 12px 30px rgba(15,118,110,.12);
+
+            transition: all .35s ease;
         }
 
         .card:hover {
+
             transform: translateY(-8px);
-            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+
+            box-shadow:
+            0 20px 40px rgba(15,118,110,.20);
         }
 
         .card img {
-            height: 220px;
+
+            height: 210px;
+            width: 100%;
+
             object-fit: cover;
+
+            transition: .4s;
         }
+
+        .card:hover img {
+            transform: scale(1.04);
+        }
+
+        .card-body {
+            padding: 22px 16px;
+        }
+
+        .card-title {
+
+            color: #134e4a;
+
+            font-size: 19px;
+            font-weight: 700;
+
+            margin-bottom: 18px;
+        }
+
+
+        /* ================= BUTTONS ================= */
+
+        .btn {
+
+            border: none !important;
+
+            border-radius: 12px !important;
+
+            padding: 10px 20px;
+
+            font-weight: 600;
+
+            transition: .3s;
+        }
+
+        .btn:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow: 0 8px 18px rgba(15,118,110,.18);
+        }
+
+        .btn-primary {
+
+            background: linear-gradient(
+                135deg,
+                #0f766e,
+                #14b8a6
+            ) !important;
+
+            color: white !important;
+        }
+
+        .btn-success {
+
+            background: linear-gradient(
+                135deg,
+                #0d9488,
+                #34b399
+            ) !important;
+
+            color: white !important;
+        }
+
+        .btn-warning {
+
+            background: linear-gradient(
+                135deg,
+                #d69e36,
+                #eabf64
+            ) !important;
+
+            color: #253b35 !important;
+        }
+
+        .btn-info {
+
+            background: linear-gradient(
+                135deg,
+                #277f91,
+                #55b6c4
+            ) !important;
+
+            color: white !important;
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width: 768px) {
+
+            .dashboard-heading {
+                font-size: 17px;
+            }
+
+            .navbar-brand {
+                font-size: 22px;
+            }
+
+            .dashboard-container {
+                padding-top: 30px;
+            }
+
+            .card img {
+                height: 220px;
+            }
+
+        }
+
     </style>
+
 </head>
 
 <body>
 
-    <!-- Navbar -->
+    <!-- NAVBAR -->
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg dashboard-nav">
+
         <div class="container">
 
-            <a class="navbar-brand fw-bold" href="#">
-                NGO Dashboard
+            <a class="navbar-brand" href="#">
+
+                <div class="logo-circle">
+                    <i class="fa-solid fa-heart-pulse"></i>
+                </div>
+
+                CareVeda
+
             </a>
 
-            <div class="ms-auto">
-                <a href="/" class="btn btn-light">Logout</a>
+            <div class="mx-auto">
+                <span class="dashboard-heading">
+                    NGO Dashboard
+                </span>
+            </div>
+
+            <div>
+                <a href="/" class="logout-btn">
+                    <i class="fa-solid fa-right-from-bracket me-1"></i>
+                    Logout
+                </a>
             </div>
 
         </div>
+
     </nav>
 
-    <!-- Dashboard Cards -->
 
-    <div class="container mt-5">
+    <!-- DASHBOARD CARDS -->
+
+    <div class="container dashboard-container">
+
+        <div class="text-center">
+
+            <h2 class="dashboard-heading-main">
+                Welcome to CareVeda
+            </h2>
+
+            <p class="dashboard-subtitle">
+                Explore healthcare resources and support through CareVeda.
+            </p>
+
+        </div>
+
 
         <div class="row justify-content-center g-4">
 
-            <!-- Profile -->
+
+            <!-- PROFILE -->
 
             <div class="col-md-3">
+
                 <div class="card text-center h-100">
 
-                    <img src="pics/profile.jpg" class="card-img-top">
+                    <img
+                    src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=700"
+                    class="card-img-top"
+                    alt="NGO Profile">
 
                     <div class="card-body">
+
                         <h5 class="card-title">Profile</h5>
 
                         <a href="/NGO-REGISTRATION" class="btn btn-primary">
                             Open Profile
                         </a>
+
                     </div>
 
                 </div>
+
             </div>
 
-            <!-- Medicine Finder -->
+
+            <!-- MEDICINE FINDER -->
 
             <div class="col-md-3">
+
                 <div class="card text-center h-100">
 
-                    <img src="pics/medicine.jpg" class="card-img-top">
+                    <img
+                    src="https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=700"
+                    class="card-img-top"
+                    alt="Medicine Finder">
 
                     <div class="card-body">
+
                         <h5 class="card-title">Medicine Finder</h5>
 
                         <a href="/medicine-finder" class="btn btn-success">
                             Find Medicine
                         </a>
+
                     </div>
 
                 </div>
+
             </div>
 
-            <!-- Equipment Finder -->
+
+            <!-- EQUIPMENT FINDER -->
 
             <div class="col-md-3">
+
                 <div class="card text-center h-100">
 
-                    <img src="pics/equipment.jpg" class="card-img-top">
+                    <img
+                    src="https://images.unsplash.com/photo-1584982751601-97dcc096659c?w=700"
+                    class="card-img-top"
+                    alt="Medical Equipment">
 
                     <div class="card-body">
+
                         <h5 class="card-title">Equipment Finder</h5>
 
                         <a href="/Equip-finder" class="btn btn-warning">
                             Find Equipment
                         </a>
+
                     </div>
 
                 </div>
+
             </div>
 
-            <!-- NGO Finder -->
+
+            <!-- NGO FINDER -->
 
             <div class="col-md-3">
+
                 <div class="card text-center h-100">
 
-                    <img src="pics/ngo.jpg" class="card-img-top">
+                    <img
+                    src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=700"
+                    class="card-img-top"
+                    alt="NGO Support">
 
                     <div class="card-body">
+
                         <h5 class="card-title">NGO Finder</h5>
 
                         <a href="/NGO-finder" class="btn btn-info">
                             Find NGO
                         </a>
+
                     </div>
 
                 </div>
+
             </div>
+
 
         </div>
 
     </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 
