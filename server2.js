@@ -35,7 +35,7 @@ let url = process.env.AIVEN_URL;
 let mysqlCon = mysql.createPool(url);
 
 console.log("MySQL connection pool created successfully");
-})  -
+})  
 
 
 //============using AJAX=================//
